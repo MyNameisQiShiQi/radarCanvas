@@ -1,0 +1,7 @@
+<view class="charts-radar">
+    <block wx:if="{{currentRadarImage}}">
+        <image class="radar-canvas-result" src="{{currentRadarImage}}"></image>
+    </block>
+</view>
+<radar-canvas aspect-canvas="{{aspectCanvas}}" radar-data="{{radarData}}" bindradarTap="radarUpdate">
+</radar-canvas>

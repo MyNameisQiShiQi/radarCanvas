@@ -1,0 +1,9 @@
+.radar-canvas{
+  width: 784rpx;
+  height: 736rpx;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  position:fixed;
+  top:0;
+  left:-200vw;
+}

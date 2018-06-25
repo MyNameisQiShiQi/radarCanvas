@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "radarCanvas代码片段",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "radar-canvas": "/components/radar-canvas/radar-canvas"
+  }
+}

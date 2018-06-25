@@ -1,0 +1,1 @@
+<canvas  class="radar-canvas" canvas-id="radarCanvas" bindtouchstart="touchHandler" ></canvas>

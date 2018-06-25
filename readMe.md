@@ -1,12 +1,14 @@
 ## 微信小程序组件<radar-canvas><radar-canvas>
 
 ### radarCanvas wxml中使用
-- 组件在wxml中使用：<radar-canvas aspect-canvas="{{aspectCanvas}}" radar-data="{{radarData}}" bindradarTap="radarUpdate">
+- 组件在wxml中使用：
+<radar-canvas aspect-canvas="{{aspectCanvas}}" radar-data="{{radarData}}" bindradarTap="radarUpdate">
 </radar-canvas>
 
 建议放在wxml底部，可任意放置
 
-- 雷达图image组件显示：<view class="charts-radar">
+- 雷达图image组件显示：
+<view class="charts-radar">
               <block wx:if="{{currentRadarImage}}">
                 <image class="radar-canvas-result" src="{{currentRadarImage}}"></image>
               </block>

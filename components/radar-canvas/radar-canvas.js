@@ -19,7 +19,6 @@ const TestColor={
     }
 };
 const componentUtil={
-    MaxDimension:5,
     systemPreference(){
         const res = wx.getSystemInfoSync();
         const windowWidth = res.windowWidth;
@@ -27,16 +26,16 @@ const componentUtil={
         const RpxH = RpxW * 1.1;
         return {RpxW,RpxH,Rpx:RpxW}
     },
-    calculateDimension(valueList){
+    calculateDimension(valueList,MaxDimension){
         let list = [0, 0, 0, 0, 0];
         if (valueList!==undefined&&valueList.length) {
             list = valueList.map(item => {
                 const it = parseInt(item / 2.5) + 1;
-                return it > this.MaxDimension ? this.MaxDimension : it;
+                return it > MaxDimension ? MaxDimension : it;
             })
         }
         return list;
-    },
+    }
 
 
 };
@@ -51,7 +50,18 @@ Component({
             type: Object,
             value: {},
             observer: function (newVal, oldVal) {
-                this.method(newVal)
+                const radarChart = this.data.radarChart
+                if (newVal.id !== '' && newVal.radarList && !isNaN(newVal.radarList[0]) && radarChart !== null && this.data.radarImageMap) {
+                    if (this.data.radarImageMap.get(newVal.id)) {
+                        this.triggerEventMethod(newVal.id);
+                        return
+                    }
+                    this.setData({id: newVal.id})
+                    const partData = this.judge(newVal,this.properties.aspectCanvas.MaxDimension);
+                    console.log("beforeRenderCanvas" + new Date().getTime());
+                    radarChart.updateData(partData);
+                    console.log("afterRenderCanvas" + new Date().getTime());
+                }
             }
         },
         aspectCanvas: {
@@ -71,12 +81,11 @@ Component({
     },
     //生命周期函数
     ready: function () {
-        console.log("hello component");
         const radarImageMap = new Map();
         this.setData({radarImageMap})
         const that = this;
         const {RpxW, RpxH, Rpx} = componentUtil.systemPreference();
-        const {canvasWidth, canvasHeight, fontSize,categories} = this.properties.aspectCanvas;
+        const {canvasWidth, canvasHeight, fontSize,categories,MaxDimension} = this.properties.aspectCanvas;
         const width = canvasWidth * 2 * RpxW;
         const height = canvasHeight * 2 * RpxH;
         this.setData({RpxW, RpxH, Rpx});
@@ -90,7 +99,7 @@ Component({
             width,
             height
         };
-        const partData = this.judge(this.properties.radarData);
+        const partData = this.judge(this.properties.radarData,MaxDimension);
         Object.assign(data, partData);
         const radarChart = new RadarCharts(data,this);
         radarChart.addEventListener('renderComplete', () => {
@@ -112,16 +121,15 @@ Component({
         this.setData({
             radarChart
         });
-        this.method(data)
     },
     methods: {
-        judge(value) {
+        judge(value,MaxDimension) {
             const color = value.gender === 1 ? TestColor.boy : TestColor.girl;
-            const dimen = componentUtil.calculateDimension(value.radarList);
+            const dimen = componentUtil.calculateDimension(value.radarList,MaxDimension);
             return {
                 extra: {
                     radar: {
-                        max: componentUtil.MaxDimension,
+                        max: MaxDimension,
                         labelColor: color.color,
                         gridColor: color.grid,
                         gridColor_2: color.grid_2,
@@ -137,21 +145,6 @@ Component({
         },
         triggerEventMethod(id) {
             this.triggerEvent('radarTap', this.data.radarImageMap.get(id), {bubbles: true, composed: true});
-        },
-        method(newVal){
-            const radarChart = this.data.radarChart;
-            console.log(newVal.id !== '' , newVal.radarList , !isNaN(newVal.radarList[0]) , radarChart !== null , this.data.radarImageMap)
-            if (newVal.id !== '' && newVal.radarList && !isNaN(newVal.radarList[0]) && radarChart !== null && this.data.radarImageMap) {
-                if (this.data.radarImageMap.get(newVal.id)) {
-                    this.triggerEventMethod(newVal.id);
-                    return
-                }
-                this.setData({id: newVal.id})
-                const partData = this.judge(newVal);
-                console.log("beforeRenderCanvas" + new Date().getTime());
-                radarChart.updateData(partData);
-                console.log("afterRenderCanvas" + new Date().getTime());
-            }
         }
     }
 });

@@ -20,7 +20,8 @@ radarCanvas中根据Id维护雷达图canvas，返回image参数来回显雷达�
             canvasWidth: 392,
             canvasHeight: 366,
             fontSize: 40,
-            categories：['智商', '高贵', '暖心', '吃货', '颜值']
+            categories：['智商', '高贵', '暖心', '吃货', '颜值'],
+            MaxDimension:5
         }
 
 aspectCanvas：画雷达图canvas需要传入的基本绘制参数
@@ -29,6 +30,7 @@ aspectCanvas：画雷达图canvas需要传入的基本绘制参数
 - canvasHeight：高
 - fontSize：各维度字体大小
 - categories：各个维度名称
+- MaxDimension:设置各维度最大值
 
 ##### 2、radarData：{
             gender: 1,

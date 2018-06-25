@@ -54,4 +54,7 @@ e.detail为获取输出图片。
 
 
 ### radarCanvas代码片段链接
-待附上
+待附上(代码包过大，无法分享)
+
+### github地址链接
+[https://github.com/MyNameisQiShiQi/radarCanvas.git]

@@ -10,7 +10,7 @@ Page({
             MaxDimension:5
         },
         currentPetNumber: 'm000225',
-        dimension: [7.5, 10.0, 12.5, 2.5, 0],
+        dimension: [2, 3,5, 1, 0],
         radarData: {},
         currentRadarImage: ""
     },

@@ -30,7 +30,7 @@ const componentUtil={
         let list = [0, 0, 0, 0, 0];
         if (valueList!==undefined&&valueList.length) {
             list = valueList.map(item => {
-                const it = parseInt(item / 2.5) + 1;
+                const it = parseInt(item) + 1;
                 return it > MaxDimension ? MaxDimension : it;
             })
         }
@@ -38,6 +38,18 @@ const componentUtil={
     }
 
 
+};
+
+//todo 默认值问题，需适当选取某些参数为可选参数，某些参数为必选参数
+const componentConfig={
+    canvasWidth: 392,
+    canvasHeight: 366,
+    fontSize: 40,
+    categories: ['智商', '高贵', '暖心', '吃货', '颜值'],
+    MaxDimension:5,
+    gender: 1,
+    id: "defaultId",
+    radarList: [7.5,2.5,5.0,10.0,2.5]
 };
 
 Component({
